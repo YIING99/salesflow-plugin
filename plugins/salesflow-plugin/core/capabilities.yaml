@@ -1,0 +1,210 @@
+version: 0.1.0
+plugin_id: salesflow
+display_name: SalesFlow
+chinese_name: 销售流
+positioning: >
+  Portable sales workflow orchestration layer. It triggers workflows, gathers evidence,
+  separates facts from judgments, drafts seller-ready artifacts, and produces explicit
+  write plans before any persistence.
+
+default_policy:
+  direct_write_allowed: false
+  write_mode: write_plan_first
+  confirmation_required: true
+  readback_required_after_write: true
+  evidence_required: true
+  bilingual_trigger_support: true
+
+workflow_order:
+  - account-research
+  - communication-summary
+  - followup-draft
+  - daily-briefing
+  - meeting-prep
+  - competitive-brief
+  - pipeline-review
+  - quote-readiness
+
+workflows:
+  - id: account-research
+    name: Account Research
+    chinese_name: 客户背调
+    purpose: Research a customer, company, or prospect and produce a grounded profile plus next actions.
+    inputs:
+      - customer_name_or_company
+      - email_domain_or_contact
+      - pasted_notes_or_source_refs
+      - optional_public_research
+    outputs:
+      - customer_research
+      - evidence_table
+      - uncertainty_list
+      - next_actions
+      - write_plan
+    tool_dependencies:
+      - sales_knowledge_base
+      - customer_activity_search
+      - public_web_optional
+    persistence_targets:
+      - sales_knowledge_base
+      - lightweight_tracker
+      - local_archive
+    allow_direct_write: false
+
+  - id: communication-summary
+    name: Communication Summary
+    chinese_name: 沟通复盘
+    purpose: Convert email, chat, call, meeting, or transcript material into facts, judgment, risk, and write plans.
+    inputs:
+      - source_text_or_file
+      - customer_identity_evidence
+      - time_range
+      - source_channel
+    outputs:
+      - communication_summary
+      - fact_judgment_split
+      - customer_activity_candidate
+      - reusable_knowledge_candidate
+      - write_plan
+    tool_dependencies:
+      - source_archive
+      - sales_knowledge_base
+      - personal_knowledge_base_optional
+    persistence_targets:
+      - sales_knowledge_base
+      - personal_knowledge_base
+      - lightweight_tracker
+      - local_archive
+    allow_direct_write: false
+
+  - id: followup-draft
+    name: Follow-up Draft
+    chinese_name: 跟进草稿
+    purpose: Draft plain-text customer-facing follow-up after evidence review and internal judgment.
+    inputs:
+      - customer_context
+      - last_touch_summary
+      - desired_tone
+      - next_step
+    outputs:
+      - plain_text_customer_draft
+      - internal_rationale
+      - risk_notes
+      - write_plan
+    tool_dependencies:
+      - sales_knowledge_base
+      - communication_summary_optional
+    persistence_targets:
+      - none_by_default
+      - sales_knowledge_base_after_sent_confirmation
+    allow_direct_write: false
+
+  - id: daily-briefing
+    name: Daily Briefing
+    chinese_name: 销售早报
+    purpose: Prioritize today's customer follow-ups from sales memory, tracker status, and recent evidence.
+    inputs:
+      - owner_or_scope
+      - date
+      - priority_constraints
+    outputs:
+      - daily_brief
+      - priority_accounts
+      - risk_queue
+      - next_actions
+      - write_plan
+    tool_dependencies:
+      - sales_dashboard
+      - lightweight_tracker
+      - recent_communications_optional
+    persistence_targets:
+      - lightweight_tracker
+      - local_archive
+    allow_direct_write: false
+
+  - id: meeting-prep
+    name: Meeting Prep
+    chinese_name: 会前准备
+    purpose: Prepare a concise customer meeting or call brief with history, risks, asks, and talk tracks.
+    inputs:
+      - meeting_context
+      - customer_identity_evidence
+      - agenda_or_goal
+    outputs:
+      - meeting_prep
+      - key_questions
+      - objection_handling_refs
+      - next_actions
+    tool_dependencies:
+      - sales_knowledge_base
+      - calendar_optional
+      - meeting_notes_optional
+    persistence_targets:
+      - none_by_default
+    allow_direct_write: false
+
+  - id: competitive-brief
+    name: Competitive Brief
+    chinese_name: 竞品简报
+    purpose: Build competitor positioning, objection handling, and response suggestions from reusable evidence.
+    inputs:
+      - competitor_name_or_claim
+      - customer_context_optional
+      - evidence_refs
+    outputs:
+      - competitive_brief
+      - battlecard
+      - evidence_table
+      - reusable_objection_candidate
+      - write_plan
+    tool_dependencies:
+      - sales_knowledge_base
+      - public_web_optional
+    persistence_targets:
+      - sales_knowledge_base
+    allow_direct_write: false
+
+  - id: pipeline-review
+    name: Pipeline Review
+    chinese_name: 销售看板复盘
+    purpose: Review account status, stage, risk, next reminders, and management follow-up needs.
+    inputs:
+      - owner_or_team_scope
+      - tracker_snapshot
+      - sales_memory_refs
+      - review_period
+    outputs:
+      - pipeline_review
+      - risk_flags
+      - followup_queue
+      - thin_status_update_plan
+    tool_dependencies:
+      - lightweight_tracker
+      - sales_dashboard
+      - sales_knowledge_base_optional
+    persistence_targets:
+      - lightweight_tracker
+      - local_archive
+    allow_direct_write: false
+
+  - id: quote-readiness
+    name: Quote Readiness
+    chinese_name: 报价准备
+    purpose: Check whether customer requirements are sufficient for quotation work and list missing inputs.
+    inputs:
+      - customer_requirements
+      - product_or_solution_context
+      - constraints
+    outputs:
+      - quote_readiness_check
+      - missing_information
+      - risk_notes
+      - quote_agent_handoff
+    tool_dependencies:
+      - quotation_workflow
+      - sales_knowledge_base_optional
+    persistence_targets:
+      - none_by_default
+      - local_archive_optional
+    allow_direct_write: false
+

@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: SalesFlow Tool Contract
+  version: 0.1.0
+  description: Abstract tool contract for SalesFlow adapters.
+paths:
+  /sales-knowledge/search-customers:
+    post:
+      operationId: searchSalesCustomers
+      summary: Search sales customer records before matching or writing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Candidate customers with evidence.
+  /sales-knowledge/save-customer-info:
+    post:
+      operationId: saveCustomerInfo
+      summary: Save stable customer profile information after confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritePlan'
+      responses:
+        '200':
+          description: Saved customer profile readback.
+  /sales-knowledge/save-activity:
+    post:
+      operationId: saveCustomerActivity
+      summary: Save one customer communication or follow-up activity after confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritePlan'
+      responses:
+        '200':
+          description: Saved activity readback.
+  /personal-knowledge/save-memory:
+    post:
+      operationId: savePersonalMemory
+      summary: Save general reusable judgment or method after confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritePlan'
+      responses:
+        '200':
+          description: Saved personal memory readback.
+  /tracker/propose-thin-state-update:
+    post:
+      operationId: proposeThinStateUpdate
+      summary: Propose lightweight status, risk, reminder, or next action update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritePlan'
+      responses:
+        '200':
+          description: Proposed or saved tracker update readback.
+  /archive/propose-readable-report:
+    post:
+      operationId: proposeReadableReport
+      summary: Propose a readable local archive report, not raw evidence relocation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritePlan'
+      responses:
+        '200':
+          description: Archive report path or proposal.
+  /quotation/check-readiness:
+    post:
+      operationId: checkQuoteReadiness
+      summary: Check whether customer requirements are sufficient for quotation workflow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_requirements
+              properties:
+                customer_requirements:
+                  type: string
+                constraints:
+                  type: string
+      responses:
+        '200':
+          description: Quote readiness result.
+components:
+  schemas:
+    SearchRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+        identifiers:
+          type: array
+          items:
+            type: string
+    WritePlan:
+      type: object
+      required:
+        - workflow_id
+        - target_system
+        - target_object
+        - evidence
+        - proposed_changes
+        - confirmation_status
+        - readback_required
+      properties:
+        workflow_id:
+          type: string
+        target_system:
+          type: string
+        target_object:
+          type: object
+        evidence:
+          type: array
+          items:
+            type: object
+        proposed_changes:
+          type: array
+          items:
+            type: object
+        confirmation_status:
+          type: string
+        readback_required:
+          type: boolean
+

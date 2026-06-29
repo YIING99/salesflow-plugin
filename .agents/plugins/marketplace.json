@@ -1,0 +1,20 @@
+{
+  "name": "salesflow",
+  "interface": {
+    "displayName": "SalesFlow"
+  },
+  "plugins": [
+    {
+      "name": "salesflow-plugin",
+      "source": {
+        "source": "local",
+        "path": "./plugins/salesflow-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Business & Operations"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: SalesFlow ChatGPT Actions
+  version: 0.1.0
+servers:
+  - url: https://salesflow.local.invalid
+paths:
+  /write-plan/validate:
+    post:
+      operationId: validateSalesFlowWritePlan
+      summary: Validate a SalesFlow write plan before user confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Validation result.
+  /tools/route:
+    post:
+      operationId: routeSalesFlowRequest
+      summary: Route a bilingual request to one or more SalesFlow workflows.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_request
+              properties:
+                user_request:
+                  type: string
+      responses:
+        '200':
+          description: Routed workflows and required gates.
+

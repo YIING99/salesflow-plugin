@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SalesFlow Write Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workflow_id",
+    "target_system",
+    "target_object",
+    "evidence",
+    "proposed_changes",
+    "confirmation_status",
+    "readback_required"
+  ],
+  "properties": {
+    "workflow_id": {
+      "type": "string",
+      "enum": [
+        "account-research",
+        "communication-summary",
+        "followup-draft",
+        "daily-briefing",
+        "meeting-prep",
+        "competitive-brief",
+        "pipeline-review",
+        "quote-readiness"
+      ]
+    },
+    "target_system": {
+      "type": "string",
+      "enum": [
+        "sales_knowledge_base",
+        "personal_knowledge_base",
+        "lightweight_tracker",
+        "local_archive",
+        "quotation_workflow"
+      ]
+    },
+    "target_object": {
+      "type": "object",
+      "required": ["type", "identifier"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "identity_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim", "source", "level"],
+        "additionalProperties": false,
+        "properties": {
+          "claim": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["L1", "L2", "L3", "L4", "L5"]
+          },
+          "verification_method": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "proposed_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field_or_section", "value", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "field_or_section": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confirmation_status": {
+      "type": "string",
+      "enum": ["not_requested", "requested", "approved", "declined"]
+    },
+    "readback_required": {
+      "type": "boolean",
+      "const": true
+    },
+    "readback_summary": {
+      "type": "string"
+    }
+  }
+}
+

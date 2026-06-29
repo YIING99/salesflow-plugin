@@ -1,0 +1,37 @@
+{
+  "name": "salesflow-plugin",
+  "version": "0.1.0",
+  "description": "Portable sales workflow orchestration with bilingual triggers, evidence gates, and write-plan routing.",
+  "author": {
+    "name": "SalesFlow Contributors",
+    "url": "https://github.com/YIING99/salesflow-plugin"
+  },
+  "homepage": "https://github.com/YIING99/salesflow-plugin",
+  "repository": "https://github.com/YIING99/salesflow-plugin",
+  "license": "MIT",
+  "keywords": [
+    "sales",
+    "sales-ai",
+    "codex-plugin",
+    "claude-code",
+    "chatgpt",
+    "bilingual",
+    "crm",
+    "mcp",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SalesFlow",
+    "shortDescription": "Bilingual customer research, follow-up, briefing, and sales action workflows.",
+    "longDescription": "SalesFlow is a portable sales workflow layer. It routes customer research, communication summaries, follow-up drafts, daily briefings, meeting prep, competitive briefs, pipeline reviews, and quote readiness checks into evidence-grounded outputs and explicit write plans.",
+    "developerName": "Local developer",
+    "category": "Business & Operations",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "帮我做客户背调并生成下一步建议",
+      "Summarize this customer conversation and draft a follow-up",
+      "今天我应该优先跟进哪些客户？"
+    ]
+  }
+}

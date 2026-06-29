@@ -1,0 +1,126 @@
+version: 0.1.0
+language_policy:
+  zh_and_en_equal_priority: true
+  fixed_slash_command_required: false
+  fuzzy_natural_language_supported: true
+
+conflict_resolution:
+  business_order:
+    - identify_customer_and_evidence
+    - account-research
+    - communication-summary
+    - followup-draft
+    - write_plan
+  rule: >
+    If one request matches several workflows, sequence the work by evidence first,
+    then judgment, then customer-facing draft, then write plan. Never write directly
+    because a trigger matched.
+
+fuzzy_examples:
+  - input: 帮我看下这个客户下一步怎么跟
+    route:
+      - account-research
+      - communication-summary
+  - input: summarize this customer email and help me reply
+    route:
+      - communication-summary
+      - followup-draft
+  - input: 今天先跟谁比较重要
+    route:
+      - daily-briefing
+  - input: is this ready for quotation?
+    route:
+      - quote-readiness
+
+workflows:
+  account-research:
+    zh:
+      - 客户背调
+      - 客户调研
+      - 查客户
+      - 查公司
+      - 客户画像
+    en:
+      - account research
+      - company research
+      - research this account
+      - customer profile
+  communication-summary:
+    zh:
+      - 沟通复盘
+      - 通话总结
+      - 会议纪要提炼
+      - 邮件归档
+      - 对话归档
+      - 提炼线索
+    en:
+      - call summary
+      - meeting recap
+      - summarize this conversation
+      - extract sales notes
+  followup-draft:
+    zh:
+      - 起草邮件
+      - 写回复
+      - 跟进邮件
+      - 客户回复
+      - 帮我回客户
+    en:
+      - draft follow-up
+      - draft outreach
+      - write a customer reply
+      - follow-up email
+  daily-briefing:
+    zh:
+      - 销售早报
+      - 今日跟进
+      - 今天先跟谁
+      - 每日销售简报
+    en:
+      - daily briefing
+      - today's follow-ups
+      - sales briefing
+      - who should I follow up today
+  meeting-prep:
+    zh:
+      - 会前准备
+      - 客户会议准备
+      - 拜访准备
+      - 电话准备
+    en:
+      - meeting prep
+      - call prep
+      - prepare for customer meeting
+  competitive-brief:
+    zh:
+      - 竞品分析
+      - 竞品话术
+      - 异议处理
+      - 反驳话术
+      - battlecard
+    en:
+      - competitive brief
+      - battlecard
+      - objection handling
+      - competitor response
+  pipeline-review:
+    zh:
+      - 销售看板复盘
+      - 周会复盘
+      - 客户跟进复盘
+      - pipeline 复盘
+    en:
+      - pipeline review
+      - account review
+      - weekly sales review
+  quote-readiness:
+    zh:
+      - 报价准备
+      - 报价前检查
+      - 需求是否够报价
+      - 报价资料检查
+    en:
+      - quote readiness
+      - quote prep
+      - quotation check
+
