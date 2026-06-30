@@ -1,0 +1,12 @@
+{
+  "name": "salesflow",
+  "owner": {
+    "name": "YIING99"
+  },
+  "plugins": [
+    {
+      "name": "salesflow-plugin",
+      "source": "./plugins/salesflow-plugin"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "salesflow-plugin",
+  "version": "0.1.0",
+  "description": "Portable bilingual sales workflow plugin for Claude Code.",
+  "author": {
+    "name": "YIING99"
+  },
+  "skills": "./skills",
+  "commands": "./adapters/claude-code/commands"
+}
