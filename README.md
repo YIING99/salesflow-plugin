@@ -60,7 +60,7 @@ python3 plugins/salesflow-plugin/scripts/validate_salesflow.py
 ## Use With Other Agents
 
 - Codex: use `plugins/salesflow-plugin/.codex-plugin/plugin.json`.
-- Claude Code: use `plugins/salesflow-plugin/adapters/claude-code/`.
+- Claude Code: install with `claude plugin marketplace add YIING99/salesflow-plugin`, then `claude plugin install salesflow-plugin@salesflow`. The Claude Code adapter lives under `plugins/salesflow-plugin/adapters/claude-code/`.
 - ChatGPT: copy `plugins/salesflow-plugin/adapters/chatgpt/PROJECT_INSTRUCTIONS.md` and optionally expose the Actions schema.
 - Synaro or generic agents: use `plugins/salesflow-plugin/adapters/synaro/SALESFLOW_WORKFLOW_PACK.md`.
 

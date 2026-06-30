@@ -20,7 +20,14 @@ codex plugin add salesflow-plugin@salesflow
 
 ## Claude Code
 
-Use the Claude Code adapter under:
+Install from the GitHub marketplace:
+
+```bash
+claude plugin marketplace add YIING99/salesflow-plugin
+claude plugin install salesflow-plugin@salesflow
+```
+
+For manual review or adapter reuse, the Claude Code adapter lives under:
 
 ```text
 plugins/salesflow-plugin/adapters/claude-code/
