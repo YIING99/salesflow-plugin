@@ -1,5 +1,6 @@
 {
   "name": "salesflow",
+  "description": "Open-source bilingual sales workflow plugin marketplace for SalesFlow.",
   "owner": {
     "name": "YIING99"
   },
